@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:vm="clr-namespace:FoodMenuApp.ViewModel" 
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="FoodMenuApp.MainPage">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+
+    <pv:PancakeView BackgroundGradientAngle="180">
+        <pv:PancakeView.BackgroundGradientStops>
+            <pv:GradientStopCollection>
+                <pv:GradientStop Color="#f6e8e8" Offset="0"/>
+                <pv:GradientStop Color="#faf4f4" Offset="1"/>
+            </pv:GradientStopCollection>
+        </pv:PancakeView.BackgroundGradientStops>
+        <Grid RowDefinitions="100, *">
+            <Grid Margin="30,0" WidthRequest="80" HeightRequest="80" 
+                  HorizontalOptions="End" VerticalOptions="Center">
+                <Grid BackgroundColor="#d1b1b0" WidthRequest="50" 
+                      HeightRequest="50" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Grid.Clip>
+                        <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                    </Grid.Clip>
+                    <Image Source="bag.png" WidthRequest="25" HeightRequest="25" 
+                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+                <Grid BackgroundColor="White" WidthRequest="30" HeightRequest="30" Margin="10" HorizontalOptions="End" VerticalOptions="Start">
+                    <Grid.Clip>
+                        <EllipseGeometry Center="15,15" RadiusX="15" RadiusY="15"/>
+                    </Grid.Clip>
+                    <Label Text="{Binding OrderCount}" TextColor="#a36767" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OpenOrder"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+            <CarouselView Grid.Row="1" ItemsSource="{Binding Foods}">
+                <CarouselView.EmptyView>
+                    <Label Text="No Item found." TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </CarouselView.EmptyView>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Spacing="20" HorizontalOptions="FillAndExpand">
+                            <Image Source="{Binding Image}" WidthRequest="200" HeightRequest="200" />
+                            <Label Text="{Binding Price, StringFormat='${0}'}" TextColor="#a36767" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Text="{Binding Name}" TextColor="Black" FontSize="25" FontAttributes="Bold" WidthRequest="220" HorizontalOptions="Center" HorizontalTextAlignment="Center" LineBreakMode="WordWrap"/>
+                            <Label Text="{Binding Description}" FontSize="18" WidthRequest="300" HorizontalOptions="Center" HorizontalTextAlignment="Center" LineBreakMode="WordWrap"/>
+                            <Button BackgroundColor="#a36767" Text="Add Order" TextColor="White" HorizontalOptions="Center" Padding="10" WidthRequest="200" CornerRadius="30" Margin="20" Clicked="AddOrder"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <Grid x:Name="OrderView" Grid.RowSpan="2" RowDefinitions="100, *" TranslationX="150"
+                  BackgroundColor="#cfadad" WidthRequest="150" HorizontalOptions="End">
+                <Grid BackgroundColor="#a36767" WidthRequest="60" HeightRequest="60" 
+                      HorizontalOptions="Center" VerticalOptions="Center">
+                    <Grid.Clip>
+                        <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                    </Grid.Clip>
+                    <Image Source="close.png" WidthRequest="35" HeightRequest="35" HorizontalOptions="Center" 
+                           VerticalOptions="Center"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CloseOrder"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+                <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto">
+                    <Label Text="Your Order" TextColor="#a36767" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <CollectionView Grid.Row="1" Margin="10" SelectionMode="None" ItemsSource="{Binding Orders}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.EmptyView>
+                            <Label Text="No order found." TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid WidthRequest="120" HeightRequest="120" HorizontalOptions="Center">
+                                    <Image Source="{Binding Image}" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <StackLayout Grid.Row="2" Margin="10" HorizontalOptions="CenterAndExpand">
+                        <Label Text="{Binding OrderCount, StringFormat='{0} Items'}" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="{Binding TotalPrice, StringFormat='Total ${0}'}" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </Grid>        
+    </pv:PancakeView>
+</ContentPage>
