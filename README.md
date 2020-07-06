@@ -1,8 +1,9 @@
 # Food Menu App in Xamarin Forms | Using Ellipse Geometry in Xamarin Forms
 
-Did you know that you can create a perfect circle with any layout or control in xamarin forms by clipping it with ellipse geometry? See the process as we design a Food Menu App.
-
-You can watch the video here ➤ https://youtu.be/MfXF5EkY6qA
+The Clip property of controls in Xamarin.Forms allows you to change the shape of your control. We will explore the use of this property as we design a Watch Shop Ecommerce App in Xamarin Forms.
 
 
-![alt text](https://github.com/devcrux/Ellipse-Geometry-in-Xamarin-Forms/blob/master/FoodThumbAds.gif) 
+You can watch the video here ➤ https://youtu.be/pb-2bXWhuMo
+
+
+![alt text](https://github.com/devcrux/Xamarin.Forms-Path---Watch-Shop/blob/master/WatchShopAds.gif) 
